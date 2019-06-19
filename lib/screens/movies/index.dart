@@ -171,20 +171,29 @@ class _MovieListState extends State<MovieList> {
           child: ScopedModelDescendant<MoviesModel>(
             builder: (BuildContext context, Widget child, MoviesModel model) {
               return model.isLoading
-                  ? ListView.builder(
-                      itemCount: model.obj.search.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          padding: EdgeInsets.fromLTRB(
-                            40 * ScreenRatio.widthRatio,
-                            5 * ScreenRatio.heightRatio,
-                            40 * ScreenRatio.widthRatio,
-                            5 * ScreenRatio.heightRatio,
+                  ? model.obj.search != null
+                      ? ListView.builder(
+                          itemCount: model.obj.search.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              padding: EdgeInsets.fromLTRB(
+                                40 * ScreenRatio.widthRatio,
+                                5 * ScreenRatio.heightRatio,
+                                40 * ScreenRatio.widthRatio,
+                                5 * ScreenRatio.heightRatio,
+                              ),
+                              child: moviesBuilder(model.obj.search[index]),
+                            );
+                          },
+                        )
+                      : Center(
+                          child: Text(
+                            "Result Not Found",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
-                          child: moviesBuilder(model.obj.search[index]),
-                        );
-                      },
-                    )
+                        )
                   : Center(
                       child: CircularProgressIndicator(),
                     );
