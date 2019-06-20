@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String movieName;
-
+  bool enable = false;
   @override
   Widget build(BuildContext context) {
     ScreenRatio.setScreenRatio(
@@ -80,6 +80,11 @@ class _HomePageState extends State<HomePage> {
                     onChanged: (value) {
                       setState(() {
                         movieName = value;
+                        if (movieName.length != 0) {
+                          enable = true;
+                        } else {
+                          enable = false;
+                        }
                       });
                     },
                   ),
@@ -90,13 +95,22 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => MovieList(
-                              movieName: movieName,
-                            ),
-                      ),
-                    );
+                    if (enable == true) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => MovieList(
+                                movieName: movieName,
+                              ),
+                        ),
+                      );
+                    }
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => MovieList(
+                    //           movieName: movieName,
+                    //         ),
+                    //   ),
+                    // );
                   },
                 )
               ],
